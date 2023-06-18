@@ -17,7 +17,11 @@ const { citizen_authority_middleware } = require("../middleware/citizen_or_autho
 
 const citizen_routes = express.Router();
 
-citizen_routes.get("/all_citizens", autnority_auth, get_all_citizen);
+citizen_routes.get(
+  "/all_citizens",
+  citizen_authority_middleware,
+  get_all_citizen
+);
 citizen_routes.post("/add_new_citizen", add_new_citizen);
 citizen_routes.post("/login", citizen_login);
 

@@ -7,7 +7,7 @@ const citizen_authority_middleware = async (req, res, next) => {
       const verified = jwt.verify(tocken, process.env.JWT);
       console.log(verified);
       if (verified.id == req.headers.user) {
-        console.log("yes");
+        console.log("yes Authority");
         next();
       } else {
         console.log("No");
@@ -22,14 +22,10 @@ const citizen_authority_middleware = async (req, res, next) => {
       const tocken = req.headers.tocken;
       const verified = jwt.verify(tocken, process.env.JWT);
       console.log(verified);
-      const user_data = user.findOne({ _id: verified.id });
-      if (user_data === null) {
-        return res.status(401).json({ msg: "User Not Found" });
-      }
+     
 
       if (
-        verified.id == req.headers.user &&
-        user_data.user_Role === "Citizen"
+        verified.id == req.headers.user 
       ) {
         console.log("yes");
         next();
