@@ -9,13 +9,11 @@ const add_new_case = async (req, res) => {
       status: req.body.status,
       case_useres: req.body.case_user,
     });
-  } catch (e) {
-    return res.status(200).json({ msg: e.message });
-  }
+  
 
   for (item of req.body.case_user) {
     console.log("______________________________________________\n");
-    try {
+    
       let userdata = await user.updateOne(
         { _id: item },
         {
@@ -26,16 +24,20 @@ const add_new_case = async (req, res) => {
           },
         }
       );
-    } catch (e) {
-      return res.status(400).json({ msg: e.message });
-    }
+    
 
     console.log(userdata);
     console.log("______________________________________________\n");
   }
 
   return res.status(200).json(new_case);
-};
+}
+catch(e)
+{
+  res.status(400).json({"msg":e.message});
+}
+}
+;
 
 const getallcases = async (req, res) => {
   cases_data = await cases.find();
